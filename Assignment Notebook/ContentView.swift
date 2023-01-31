@@ -9,18 +9,26 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
+//        NavigationView {
+//            VStack {
+//                List {
+//                    ForEach
+//                }
+//            }
+//            .navigationBarTitle("Assignment Notebook", displayMode: .inline)
+//
+//        }
+//    }
 }
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
+}
+
+struct AssignmentName: Identifiable, Codable {
+    var id = UUID()
+    var subject: String
+    var description: String
+    var dueDate = Date()
 }
