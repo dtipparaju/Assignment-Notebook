@@ -9,16 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-//        NavigationView {
-//            VStack {
-//                List {
-//                    ForEach
-//                }
-//            }
-//            .navigationBarTitle("Assignment Notebook", displayMode: .inline)
-//
-//        }
-//    }
+        NavigationView {
+            VStack {
+                Text("Filler Space")
+                    .navigationBarTitle("Assignment Notebook", displayMode: .inline)
+            }
+        }
+    }
 }
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
