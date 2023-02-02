@@ -12,45 +12,48 @@ struct ContentView: View {
     @State private var showingAddItemView = false
     var body: some View {
         NavigationView {
-            List {
-                ForEach(assignmentList.items) { item in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(item.subject)
-                                .font(.headline)
-                            Text(item.description)
+            VStack{
+                List {
+                    ForEach(assignmentList.items) { item in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(item.subject)
+                                    .font(.headline)
+                                Text(item.description)
+                            }
+                            Spacer()
+                            Text(item.dueDate, style: .date)
                         }
-                        Spacer()
-                        Text(item.dueDate, style: .date)
+                    }
+                    .onMove {indices, newOffset in
+                        assignmentList.items.move(fromOffsets: indices, toOffset: newOffset)
+                    }
+                    .onDelete { IndexSet in
+                        assignmentList.items.remove(atOffsets: IndexSet)
                     }
                 }
-                .onMove {indices, newOffset in
-                    assignmentList.items.move(fromOffsets: indices, toOffset: newOffset)
-                }
-                .onDelete { IndexSet in
-                    assignmentList.items.remove(atOffsets: IndexSet)
-                }
-            }
-            .sheet(isPresented: $showingAddItemView, content: {
-                AddItemView(assignmentList: assignmentList)
-            })
-            .navigationBarTitle("To Do List", displayMode: .inline)
-            .navigationBarItems(leading: EditButton(), trailing: Button(action: {
-                showingAddItemView = true }) {
-                    Image(systemName: "plus")
+                .sheet(isPresented: $showingAddItemView, content: {
+                    AddItemView(assignmentList: assignmentList)
                 })
+                .navigationBarTitle("To Do List", displayMode: .inline)
+                .navigationBarItems(leading: EditButton(), trailing: Button(action: {
+                    showingAddItemView = true }) {
+                        Image(systemName: "plus")
+                    })
+            }
         }
     }
 }
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            ContentView()
-        }
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
-    
-    struct AssignmentName: Identifiable, Codable {
-        var id = UUID()
-        var subject: String
-        var description: String
-        var dueDate = Date()
-    }
+}
+
+struct AssignmentName: Identifiable, Codable {
+    var id = UUID()
+    var subject: String
+    var description: String
+    var dueDate = Date()
+}
