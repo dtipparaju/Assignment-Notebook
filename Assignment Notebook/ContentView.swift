@@ -12,7 +12,14 @@ struct ContentView: View {
     @State private var showingAddItemView = false
     var body: some View {
         NavigationView {
-            VStack{
+            VStack {
+                if assignmentList.items.count == 0 {
+                    Text("Press the + to start planning")
+                        .font(.title)
+                        .bold()
+                        .opacity(0.6)
+                        .padding(80)
+                }
                 List {
                     ForEach(assignmentList.items) { item in
                         HStack {
@@ -35,12 +42,13 @@ struct ContentView: View {
                 .sheet(isPresented: $showingAddItemView, content: {
                     AddItemView(assignmentList: assignmentList)
                 })
-                .navigationBarTitle("To Do List", displayMode: .inline)
+                .navigationBarTitle("Assignment Planner", displayMode: .inline)
                 .navigationBarItems(leading: EditButton(), trailing: Button(action: {
                     showingAddItemView = true }) {
                         Image(systemName: "plus")
                     })
             }
+            .background(.green.opacity(0.7))
         }
     }
 }
